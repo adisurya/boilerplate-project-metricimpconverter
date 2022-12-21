@@ -2,7 +2,27 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    
+    const pattern = RegExp(/[a-zA-Z]+/);
+    const num = input.replace(pattern, '').trim();
+    if (num === '') {
+      result = 1;
+    } else if (Number.isNaN(num)) {
+      const numArrs = num.split('/');
+      if (numArrs.length !== 2) {
+        result = new Error('invalid number');
+      } else {
+        const n1 = Number(numArrs[0]);
+        const n2 = Number(numArrs[1]);
+        if (Number.isNaN(n1) || Number.isNaN(n2)) {
+          result = new Error('invalid number');
+        } else {
+          result = n1 / n2;
+        }
+      }
+    } else {
+      result = num;
+    }
+
     return result;
   };
   
